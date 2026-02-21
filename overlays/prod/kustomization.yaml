@@ -9,7 +9,7 @@ images:
   # 1. 블로그 이미지 덮어쓰기
   - name: kpryu/hydejack-base
     newName: kpryu/hydejack
-    newTag: blog-1.0.8
+    newTag: 1.0.8
 
   # 2. 위키 이미지 덮어쓰기 (Private 레포 1개 제한 회피용 태그)
   - name: kpryu/wiki-base
