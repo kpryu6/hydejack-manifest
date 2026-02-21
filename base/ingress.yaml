@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - kpryu.sytes.net # 본인 도메인
+      secretName: kpryu-tls-secret # 인증서가 저장될 비밀 금고 이름 (자동 생성됨)
+  rules:
+    - host: kpryu.sytes.net
+      http:
+        paths:
+          # [순서 1] 위키를 먼저 가로챕니다. (특수 목적)
+          - path: /wiki
+            pathType: Prefix
+            backend:
+              service:
+                name: wiki-service # 백과사전 앱 (Docusaurus 등)
+                port:
+                  number: 80
+
+          # [순서 2] 나머지는 전부 Hydejack으로 보냅니다. (메인 사이트)
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hydejack-service # 이력서 사이트
+                port:
+                  number: 80

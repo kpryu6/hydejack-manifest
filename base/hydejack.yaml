@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hydejack-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hydejack
+  template:
+    metadata:
+      labels:
+        app: hydejack
+    spec:
+      imagePullSecrets:
+        - name: regcred
+
+      containers:
+        - name: hydejack
+          image: kpryu/hydejack:latest
+          ports:
+            - containerPort: 8080 # Nginx 기본 포트
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hydejack-service # Ingress가 찾는 이름!
+spec:
+  selector:
+    app: hydejack
+  ports:
+    - port: 80
+      targetPort: 8080
