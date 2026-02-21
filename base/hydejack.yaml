@@ -17,7 +17,7 @@ spec:
 
       containers:
         - name: hydejack
-          image: kpryu/hydejack:latest
+          image: kpryu/hydejack-base:latest
           ports:
             - containerPort: 8080 # Nginx 기본 포트
 ---
