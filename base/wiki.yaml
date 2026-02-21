@@ -16,7 +16,7 @@ spec:
         - name: regcred
       containers:
         - name: wiki
-          image: kpryu/hydejack:wiki-latest
+          image: kpryu/wiki-base:latest
           ports:
             - containerPort: 80
 ---
