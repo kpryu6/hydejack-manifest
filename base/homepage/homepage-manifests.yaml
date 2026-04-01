@@ -40,7 +40,7 @@ data:
   settings.yaml: |
     title: Thompson's HomeLab
     background: https://images.unsplash.com/photo-1550745165-9bc0b252728f?q=80&w=2070&auto=format&fit=crop
-  base: /homepage
+    base: /homepage
   widgets.yaml: |
     - kubernetes:
         cluster:
