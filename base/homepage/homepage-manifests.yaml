@@ -106,3 +106,12 @@ spec:
       targetPort: 3000
   selector:
     app: homepage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage-proxy
+  namespace: default # 메인 Ingress와 같은 동네
+spec:
+  type: ExternalName
+  externalName: homepage-service.homepage.svc.cluster.local

@@ -23,6 +23,14 @@ spec:
                 port:
                   number: 80
 
+
+          - path: /homepage
+            pathType: Prefix
+            backend:
+              service:
+                name: homepage-proxy
+                port:
+                  number: 80
           # [순서 2] 나머지는 전부 Hydejack으로 보냅니다. (메인 사이트)
           - path: /
             pathType: Prefix
