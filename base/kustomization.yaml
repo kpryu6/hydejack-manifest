@@ -5,3 +5,4 @@ resources:
   - hydejack.yaml
   - wiki.yaml
   - ingress.yaml
+  - ./homepage
