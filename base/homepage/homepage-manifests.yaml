@@ -89,7 +89,7 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: HOEPAGE_BASE
+            - name: HOMEPAGE_BASE
               value: "/homepage"
           volumeMounts:
             - name: config
