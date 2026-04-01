@@ -88,6 +88,9 @@ spec:
           image: ghcr.io/benphelps/homepage:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: HOEPAGE_BASE
+              value: "/homepage"
           volumeMounts:
             - name: config
               mountPath: /app/config
