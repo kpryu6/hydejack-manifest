@@ -2,16 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../base
+  - ../../base
 
 # CI/CD 파이프라인에서 버전이 업데이트되면 아래 태그를 자동으로 덮어씁니다.
-  # 1. 블로그 이미지 덮어쓰기
+# 1. 블로그 이미지 덮어쓰기
 
-  # 2. 위키 이미지 덮어쓰기 (Private 레포 1개 제한 회피용 태그)
+# 2. 위키 이미지 덮어쓰기 (Private 레포 1개 제한 회피용 태그)
 images:
-- name: kpryu/hydejack-base
-  newName: kpryu/hydejack
-  newTag: blog-c13c115
-- name: kpryu/wiki-base
-  newName: kpryu/hydejack
-  newTag: wiki-41a3d30
+  - name: kpryu/hydejack-base
+    newName: kpryu/hydejack
+    newTag: blog-c13c115
+# - name: kpryu/wiki-base
+#   newName: kpryu/hydejack
+#   newTag: wiki-41a3d30
