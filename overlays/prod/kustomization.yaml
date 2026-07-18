@@ -11,4 +11,4 @@ resources:
 images:
 - name: kpryu/hydejack-base
   newName: kpryu/hydejack
-  newTag: blog-aab18e8
+  newTag: blog-cf421cc
