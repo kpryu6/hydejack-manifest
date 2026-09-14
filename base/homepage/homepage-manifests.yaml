@@ -47,9 +47,24 @@ data:
     logpath: /tmp
   kubernetes.yaml: |
     mode: cluster
+  bookmarks.yaml: |
+    - Repos:
+        - hydejack:
+            - abbr: HJ
+              href: https://github.com/kpryu6/hydejack
+        - hydejack-manifest:
+            - abbr: MF
+              href: https://github.com/kpryu6/hydejack-manifest
+  docker.yaml: ""
+  custom.css: ""
+  custom.js: ""
   widgets.yaml: |
     - kubernetes:
         cluster:
+          show: true
+          cpu: true
+          memory: true
+        nodes:
           show: true
           cpu: true
           memory: true
@@ -69,7 +84,7 @@ data:
             description: Hypervisor
     - Kubernetes Services:
         - ArgoCD:
-            icon: argocd
+            icon: argo-cd
             href: https://192.168.219.241
             description: GitOps CD
         - Portfolio:
