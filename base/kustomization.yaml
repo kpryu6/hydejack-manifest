@@ -5,4 +5,7 @@ resources:
   - hydejack.yaml
   # - wiki.yaml
   - ingress.yaml
+  - redirect-ingress.yaml
+  - ./cert
+  - ./ddns
   - ./homepage

@@ -1,0 +1,26 @@
+# kpryu.sytes.net -> kpryu.cloud 영구 리다이렉트.
+# 기존 HTTP-01 인증서(letsencrypt-prod)를 그대로 갱신해 https 로도 리다이렉트된다.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legacy-redirect
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/permanent-redirect: https://kpryu.cloud$request_uri
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - kpryu.sytes.net
+      secretName: kpryu-tls-secret
+  rules:
+    - host: kpryu.sytes.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hydejack-service # 리다이렉트 어노테이션이 우선하므로 실제로는 도달하지 않음
+                port:
+                  number: 80

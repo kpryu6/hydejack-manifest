@@ -13,12 +13,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: homepage
+# 위젯이 쓰는 것은 노드 메트릭만이다. 공개 대시보드이므로 파드/네임스페이스 목록은 열지 않는다.
 rules:
   - apiGroups: [""]
-    resources: ["nodes", "pods", "namespaces"]
+    resources: ["nodes"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["metrics.k8s.io"]
-    resources: ["nodes", "pods"]
+    resources: ["nodes"]
     verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -43,7 +44,7 @@ data:
   settings.yaml: |
     title: Thompson's HomeLab
     background: https://images.unsplash.com/photo-1550745165-9bc0b252728f?q=80&w=2070&auto=format&fit=crop
-    base: http://192.168.219.242
+    base: https://lab.kpryu.cloud
     logpath: /tmp
   kubernetes.yaml: |
     mode: cluster
@@ -89,7 +90,7 @@ data:
             description: GitOps CD
         - Portfolio:
             icon: mdi-briefcase
-            href: https://kpryu.sytes.net
+            href: https://kpryu.cloud
             description: My Portfolio Site
 ---
 apiVersion: apps/v1
@@ -115,7 +116,7 @@ spec:
             - containerPort: 3000
           env:
             - name: HOMEPAGE_ALLOWED_HOSTS
-              value: "192.168.219.242"
+              value: "192.168.219.242,lab.kpryu.cloud"
           volumeMounts:
             - name: config
               mountPath: /app/config
@@ -138,3 +139,26 @@ spec:
       targetPort: 3000
   selector:
     app: homepage
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - lab.kpryu.cloud
+      secretName: kpryu-cloud-tls
+  rules:
+    - host: lab.kpryu.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homepage-service
+                port:
+                  number: 80

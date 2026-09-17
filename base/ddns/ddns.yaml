@@ -1,0 +1,51 @@
+# 집 공인 IP 가 바뀌면 Cloudflare 의 A 레코드를 갱신한다 (No-IP DUC 대체).
+# 사전 준비 (git 에 넣지 않음):
+#   kubectl -n ddns create secret generic cloudflare-api-token --from-literal=token=<TOKEN>
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ddns
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+  namespace: ddns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflare-ddns
+  template:
+    metadata:
+      labels:
+        app: cloudflare-ddns
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: cloudflare-ddns
+          image: favonia/cloudflare-ddns:1
+          env:
+            - name: CLOUDFLARE_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-api-token
+                  key: token
+            - name: DOMAINS
+              value: "kpryu.cloud,lab.kpryu.cloud"
+            - name: PROXIED
+              value: "false"   # true 로 바꾸면 Cloudflare 프록시가 집 IP 를 숨긴다
+            - name: IP6_PROVIDER
+              value: "none"
+            - name: UPDATE_CRON
+              value: "@every 5m"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: { cpu: 10m, memory: 16Mi }
+            limits:   { cpu: 50m, memory: 64Mi }

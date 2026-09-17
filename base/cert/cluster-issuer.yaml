@@ -1,0 +1,20 @@
+# Cloudflare DNS-01. 와일드카드 발급이 가능해 서브도메인 추가 시 인증서 작업이 없다.
+# 사전 준비 (git 에 넣지 않음):
+#   kubectl -n cert-manager create secret generic cloudflare-api-token --from-literal=api-token=<TOKEN>
+# 토큰 권한: Zone:DNS:Edit + Zone:Zone:Read, Zone Resources 는 kpryu.cloud 로 제한
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns01
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: kyongpyo0626@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-dns01-account-key
+    solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: api-token
