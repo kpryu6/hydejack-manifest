@@ -14,4 +14,4 @@ images:
   newTag: blog-603fcb1
 - name: kpryu/wiki-base
   newName: kpryu/hydejack
-  newTag: wiki-latest
+  newTag: wiki-603fcb1
