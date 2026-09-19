@@ -34,7 +34,7 @@ spec:
                   name: cloudflare-api-token
                   key: token
             - name: DOMAINS
-              value: "kpryu.cloud,lab.kpryu.cloud"
+              value: "kpryu.cloud,lab.kpryu.cloud,wiki.kpryu.cloud"
             - name: PROXIED
               value: "false"   # true 로 바꾸면 Cloudflare 프록시가 집 IP 를 숨긴다
             - name: IP6_PROVIDER

@@ -1,21 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: main-ingress
+  name: wiki-ingress
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - kpryu.cloud
-      secretName: kpryu-cloud-tls # base/cert/certificates.yaml 의 와일드카드 인증서
+        - wiki.kpryu.cloud
+      secretName: kpryu-cloud-tls # 와일드카드 인증서 재사용
   rules:
-    - host: kpryu.cloud
+    - host: wiki.kpryu.cloud
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: hydejack-service
+                name: wiki-service
                 port:
                   number: 80

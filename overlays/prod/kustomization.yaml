@@ -12,3 +12,6 @@ images:
 - name: kpryu/hydejack-base
   newName: kpryu/hydejack
   newTag: blog-f8372c6
+- name: kpryu/wiki-base
+  newName: kpryu/hydejack
+  newTag: wiki-latest

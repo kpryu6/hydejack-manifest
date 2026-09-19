@@ -3,8 +3,9 @@ kind: Kustomization
 
 resources:
   - hydejack.yaml
-  # - wiki.yaml
+  - wiki.yaml
   - ingress.yaml
+  - wiki-ingress.yaml
   - redirect-ingress.yaml
   - ./cert
   - ./ddns

@@ -92,6 +92,10 @@ data:
             icon: mdi-briefcase
             href: https://kpryu.cloud
             description: My Portfolio Site
+        - Wiki:
+            icon: hugo
+            href: https://wiki.kpryu.cloud
+            description: Troubleshooting Notes
 ---
 apiVersion: apps/v1
 kind: Deployment
